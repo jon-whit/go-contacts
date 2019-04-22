@@ -8,7 +8,6 @@ type Contact struct {
 	LastName  string `json:"lastName"`
 	Phone     string `json:"phone"`
 	Email     string `json:"email,omitempty"`
-	Address   string `json:"address,omitempty"`
 }
 
 // Bind on Contact will run after the unmarshalling is complete, its

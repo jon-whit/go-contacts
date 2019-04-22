@@ -10,7 +10,7 @@ type ContactsDatastore struct {
 }
 
 func (ds *ContactsDatastore) ListUserContacts(userID string) ([]models.Contact, error) {
-	rows, err := ds.Query("SELECT (id, first_name, last_name, phone, email, address) FROM contacts WHERE user_id=?", userID)
+	rows, err := ds.Query("SELECT (id, first_name, last_name, phone, email) FROM contacts WHERE user_id=?", userID)
 	if err != nil {
 		return nil, err
 	}
@@ -18,9 +18,9 @@ func (ds *ContactsDatastore) ListUserContacts(userID string) ([]models.Contact, 
 	var contacts []models.Contact
 	for rows.Next() {
 
-		var id, firstName, lastName, phone, email, address string
+		var id, firstName, lastName, phone, email string
 
-		err = rows.Scan(&id, &firstName, &lastName, &phone, &email, &address)
+		err = rows.Scan(&id, &firstName, &lastName, &phone, &email)
 		if err != nil {
 			return nil, err
 		}
@@ -31,7 +31,6 @@ func (ds *ContactsDatastore) ListUserContacts(userID string) ([]models.Contact, 
 			LastName:  lastName,
 			Phone:     phone,
 			Email:     email,
-			Address:   address,
 		})
 	}
 
@@ -39,8 +38,8 @@ func (ds *ContactsDatastore) ListUserContacts(userID string) ([]models.Contact, 
 }
 
 func (ds *ContactsDatastore) CreateUserContact(userID string, contact models.Contact) (models.Contact, error) {
-	_, err := ds.Execute(`INSERT INTO contacts (user_id, id, first_name, last_name, phone, email, address) VALUES (?,?,?,?,?,?,?)`,
-		userID, contact.ID, contact.FirstName, contact.LastName, contact.Phone, contact.Email, contact.Address)
+	_, err := ds.Execute(`INSERT INTO contacts (user_id, id, first_name, last_name, phone, email) VALUES (?,?,?,?,?,?)`,
+		userID, contact.ID, contact.FirstName, contact.LastName, contact.Phone, contact.Email)
 
 	if err != nil {
 		return models.Contact{}, err
