@@ -8,3 +8,24 @@ The Contacts API specification is defined as follows:
 |--------|--------------------------------------|--------------------------------|
 | GET    | `/users/:userid/contacts`            | List a user's contacts         |
 | POST   | `/users/:userid/contacts`            | Create a contact               |
+
+## Install
+Clone the source
+    git clone https://github.com/jon-whit/go-contacts
+
+Setup dependencies
+
+    go get -u github.com/go-chi/chi
+    go get -u github.com/mattn/go-sqlite3
+
+Setup sqlite data structure
+
+    sqlite3 /var/tmp/go-contacts.db < setup.sql
+
+Test first for your liking
+
+    go test ./... -v
+
+Run the app
+
+    go build && ./go-contacts

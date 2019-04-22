@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"sync"
 
 	"github.com/go-chi/chi"
@@ -18,8 +19,13 @@ type router struct{}
 func (router *router) InitRouter() *chi.Mux {
 
 	// Create the SQLite DB Handler
-	// Covered in the next article in this series.
-	var sqliteHandler interfaces.DBHandler
+	sqlConn, err := sql.Open("sqlite3", "/var/tmp/go-contacts.db")
+	if err != nil {
+		// handle error
+	}
+	sqliteHandler := &datastores.SQLiteHandler{
+		Conn: sqlConn,
+	}
 
 	// Inject all implementations of the interfaces.
 	controller := controllers.ContactsController{
