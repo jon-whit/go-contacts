@@ -1,3 +1,5 @@
+//go:generate mockgen -source ../interfaces/ContactsDataAccessor.go -destination ../mocks/mock_ContactsDataAccessor.go -package mocks ContactsDataAccessor
+
 package interfaces
 
 import "github.com/jon-whit/go-contacts/models"

@@ -1,3 +1,5 @@
+//go:generate mockgen -source ../interfaces/DBHandler.go -destination ../mocks/mock_DBHandler.go -package mocks DBHandler
+
 package interfaces
 
 import "database/sql"
